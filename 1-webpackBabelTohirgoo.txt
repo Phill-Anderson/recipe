@@ -1,0 +1,14 @@
+webpack , babel тохиргоо хийх:
+1. dist , src фолдер үүсгэх
+2. npm init -y
+3. npm i webpack webpack-cli --save-dev
+4. webpack.config.js үүсгэж эхэлж compile хийх file - ийг зааж өгөх
+5. html-webpack-plugin суулгах // compile хийгдэж буй үед dist фолдео дотор index.html файлыг автоматаар үүсгэж өөрчлөлтийг хадгалах ажиллагааг хийдэг.
+6. package json дээр команд script тохируулах / development, production mode  / 
+7. dev-server тохируулах
+ npm install webpack-dev-server --save-dev // кодонд хийгдсэн өөрчлөлтийг нэн даруй харах боломжтой болгоно
+8. babel суулгаж тохируулах // орчин үеийн js -ийг хувиргаж хуучин browser -уудад таниулдаг
+npm install --save-dev @babel/core @babel/cli @babel/preset-env
+npm install --save @babel/polyfill // зарим browser - уудад js кодыг хөрвүүлэх боломжгүй байдаг тул polyfill - ийг dependency mode -оор суулгаснаар энэхүү асуудлыг шийддэг
+9. babel.config.json файл үүсгэж тохируулах
+10. babel-loader суулгах

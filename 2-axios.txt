@@ -1,0 +1,4 @@
+1. npm i axios
+2. ReferenceError: regeneratorRuntime is not defined ийм алдаа гарав. babel/polyfill - ийг холбосон мөртлөө import хийж дуудаагүй байна гэсэн алдаа гарчээ . babel/polyfill convert хийгдэх боломжгүй шинэ js кодуудыг хуучин browser engine руу extend хийж нэмж өгдөг.
+3.  async ашиглаж байгаа бол babel/polyfill - ийг заавал ашиглаж байх хэрэгтэй. babel/polyfill - ийг ашиглахийн тулд хамгийн эхлээд дуудагдахаар зарлах хэрэгтэй
+
