@@ -3,6 +3,7 @@ import Search from "./model/Search";
 import { elements, renderLoader, clearLoader } from "./view/base";
 import * as searchView from "./view/searchView";
 import Recipe from "./model/Recipe";
+import { renderRecipe, clearRecipe } from "./view/recipeView";
 /**
  * Web app төлөв
  * - Хайлтын query, үр дүн
@@ -51,5 +52,21 @@ elements.pageButtons.addEventListener("click", e => {
   }
 });
 
-let r = new Recipe(47746);
-r.getRecipe();
+/*жорын контроллер*/
+const controlRecipe = async () => {
+  // 1. URL - ээс ID-ийг салгаж авна
+  const id = window.location.hash.replace("#", "");
+  console.log(id);
+  // 2. Жорын моделийг үүсгэж өгнө
+  state.recipe = new Recipe(id);
+  // 3. UI дэлгэцийг бэлтгэнэ
+  clearRecipe();
+  // 4. Жороо татаж авчрана
+  await state.recipe.getRecipe();
+  // 5. Жорыг гүйцэтгэх хугацаа болон орцыг тооцоолно.
+  state.recipe.calcTime();
+  state.recipe.calcHuniiToo();
+  // 6. Жороо дэлгэцэнд гаргана.
+  renderRecipe(state.recipe);
+};
+window.addEventListener("hashchange", controlRecipe);

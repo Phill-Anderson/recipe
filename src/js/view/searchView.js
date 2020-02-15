@@ -8,7 +8,7 @@ import { elements } from "./base";
 // publisher_url: "http://www.twopeasandtheirpod.com"
 // private function
 const renderRecipe = recipe => {
-  console.log(recipe);
+  //console.log(recipe);
   const markup = `
     <li>
         <a class="results__link" href="#${recipe.recipe_id}">
