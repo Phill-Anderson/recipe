@@ -10,6 +10,17 @@ const renderNairlaga = orts => `
         </div>
     </li>
 `;
+
+export const highlightSelectedRecipe = id => {
+  const arr = Array.from(document.querySelectorAll(".results__link"));
+  arr.forEach(el => el.classList.remove("results__link--active"));
+
+  // програм ачаалахад domObj нь null утга авна
+  const domObj = document.querySelector(`a[href*="${id}"]`);
+  // domObj  нь ямар нэгэн утга авсан эсэхийг шалгаад true бол css классыг нэмнэ
+  if (domObj) domObj.classList.add("results__link--active");
+};
+
 export const clearRecipe = () => {
   // Одоо дэлгэц дээр харагдаж байгаа жорыг арилгана
   elements.recipeDiv.innerHTML = "";
