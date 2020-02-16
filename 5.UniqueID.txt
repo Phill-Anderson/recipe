@@ -1,0 +1,3 @@
+// давтагдахгүй id - гаар нь дамжуулж List model - оос устгах үйлдлийг хийх нь
+1. npm install uniqueid
+2.  List model - руугаа uniqueid - ийг import - лоно.
