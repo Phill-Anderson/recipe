@@ -4,6 +4,7 @@ import { elements, renderLoader, clearLoader } from "./view/base";
 import * as searchView from "./view/searchView";
 import Recipe from "./model/Recipe";
 import List from "./model/List";
+import Like from "./model/Like";
 import * as listView from "./view/listView";
 
 import {
@@ -105,7 +106,7 @@ const controlRecipe = async () => {
 const controlList = () => {
   // Найрлаганы моделийг үүсгэнэ
   state.list = new List();
-  window.tt = state.list; // тэстлэж харахын тулд үүсгэсэн
+
   // Өмнө харагдаж байсан найрлагануудыг дэлгэцээс зайлуулна.
   listView.clearItems();
 
@@ -119,9 +120,39 @@ const controlList = () => {
   });
 };
 
+/**
+ * Like контроллер
+ */
+const controlLike = () => {
+  // 1) Лайкийн моделийг үүсгэнэ.
+  if (!state.likes) state.likes = new Like();
+
+  // 2) Одоо харагдаж байгаа жорын ID-ийг олж авах
+  const currentRecipeId = state.recipe.id;
+
+  // 3) Энэ жорыг лайкласан эсэхийг шалгах
+  if (state.likes.isLiked(currentRecipeId)) {
+    // Лайкласан бол лайкийг нь болиулна
+    state.likes.deleteLike(currentRecipeId);
+    console.log(state.likes);
+  } else {
+    // Лайклаагүй бол лайклана.
+    state.likes.addLike(
+      currentRecipeId,
+      state.recipe.title,
+      state.recipe.publisher,
+      state.recipe.image_url
+    );
+
+    console.log(state.likes);
+  }
+};
+
 elements.recipeDiv.addEventListener("click", e => {
   if (e.target.matches(".recipe__btn, .recipe__btn *")) {
     controlList();
+  } else if (e.target.matches(".recipe__love, .recipe__love *")) {
+    controlLike();
   }
 });
 
