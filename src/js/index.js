@@ -5,6 +5,7 @@ import * as searchView from "./view/searchView";
 import Recipe from "./model/Recipe";
 import List from "./model/List";
 import Like from "./model/Like";
+import * as likesView from "./view/likesView";
 import * as listView from "./view/listView";
 
 import {
@@ -22,7 +23,8 @@ import {
  */
 
 const state = {};
-
+// Лайк цэсийг хаах
+likesView.toggleLikeMenu(0);
 /**
  * Хайлтын контроллер = Model ==> Controller <== View
  */
@@ -70,6 +72,7 @@ elements.pageButtons.addEventListener("click", e => {
 const controlRecipe = async () => {
   // 1) URL-аас ID-ийг салгаж
   const id = window.location.hash.replace("#", "");
+  if (!state.likes) state.likes = new Like();
 
   // URL дээр ID байгаа эсэхийг шалгана
   if (id) {
@@ -90,7 +93,7 @@ const controlRecipe = async () => {
     state.recipe.calcHuniiToo();
 
     // 6) Жороо дэлгэцэнд гаргана
-    renderRecipe(state.recipe);
+    renderRecipe(state.recipe, state.likes.isLiked(id));
   }
 };
 
@@ -134,18 +137,28 @@ const controlLike = () => {
   if (state.likes.isLiked(currentRecipeId)) {
     // Лайкласан бол лайкийг нь болиулна
     state.likes.deleteLike(currentRecipeId);
-    console.log(state.likes);
+    // Лайкын цэснээс устгана
+    likesView.deleteLike(currentRecipeId);
+
+    // Лайк товчны лайкласан байдлыг болиулах
+    likesView.toggleLikeBtn(false);
   } else {
     // Лайклаагүй бол лайклана.
-    state.likes.addLike(
+    const newLike = state.likes.addLike(
       currentRecipeId,
       state.recipe.title,
       state.recipe.publisher,
       state.recipe.image_url
     );
 
-    console.log(state.likes);
+    // Лайк цэсэнд энэ лайкыг оруулах
+    likesView.renderLike(newLike);
+
+    // Лайк товчны лайкласан байдлыг лайкласан болгох
+    likesView.toggleLikeBtn(true);
   }
+
+  likesView.toggleLikeMenu(state.likes.getNumberOfLikes());
 };
 
 elements.recipeDiv.addEventListener("click", e => {
